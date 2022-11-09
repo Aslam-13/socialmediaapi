@@ -1,0 +1,11 @@
+{
+  "name": "social-media-api",
+  "version": "1.0.0",
+  "description": "Social media backend api's",
+  "main": "server.js",
+  "scripts": {
+    "test": "node server.js"
+  },
+  "author": "Aslam",
+  "license": "ISC"
+}
