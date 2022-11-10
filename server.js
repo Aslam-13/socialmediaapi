@@ -5,11 +5,14 @@ const connectDB = require('./config/db');
 const colors = require('colors');
 const path = require('path');
 const errorHandler = require('./middleware/error');
+const cookieParser = require('cookie-parser');
+
 
 
 //route files
-const auth = require('./controllers/auth.js');
-const posts = require('./controllers/posts.js');
+const auth = require('./routes/auth'); 
+const user = require('./routes/user');
+const post = require('./routes/post');
 
 
 // config
@@ -24,6 +27,7 @@ const app = express();
 
 // json content
 app.use(express.json());
+app.use(cookieParser());
 
 
 
@@ -35,12 +39,12 @@ if(process.env.NODE_ENV === 'development'){
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes
-app.use('/api/v1/auth', auth);
-app.use('/api/v1/posts', posts);
-
+app.use('/api/v1/auth', auth); 
+app.use('/api/v1/user', user); 
+app.use('/api/v1/post', post); 
 
 // Errors middleware
-app.use(errorHandler());
+app.use(errorHandler);
 // Port
 const PORT = process.env.PORT || 5000;
 
