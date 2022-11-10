@@ -40,7 +40,7 @@ exports.unfollow = asyncHandler(async(req, res, next)=>{
    
    if  (user.followers.includes(req.user.id)) {
     await user.updateOne({ $pull: { followers: req.user.id } });
-    await currentUser.updateOne({ $push: { followings: req.params.id } });
+    await currentUser.updateOne({ $pull: { followings: req.params.id } });
     res.status(200).json({
       success: true,
       message: "User has been unfollowed"
