@@ -39,6 +39,12 @@ if(process.env.NODE_ENV === 'development'){
 app.use(express.static(path.join(__dirname, 'public')))
 
 // routes
+app.get('/', (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: 'API service running 🚀',
+  });
+});
 app.use('/api/v1/auth', auth); 
 app.use('/api/v1/user', user); 
 app.use('/api/v1/post', post); 
