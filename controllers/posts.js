@@ -10,6 +10,7 @@ exports.createPost = asyncHandler(async (req, res, next)=>{
     data: post
   })
 })
+
 exports.deletePost = asyncHandler(async (req, res, next)=>{ 
   const post = await Post.findById(req.params.id);
   if(!post){
@@ -19,19 +20,17 @@ exports.deletePost = asyncHandler(async (req, res, next)=>{
     );
    } 
    if(post.userId.toString()!== req.user.id ){
-    return next(new ErrorResponse(`User ${req.user.id} is not authorized to delete post${post._id}`, 401))
-  
+    return next(new ErrorResponse(`User ${req.user.id} is not authorized to delete post${post._id}`, 401)) 
   }
    await post.remove();
     res.status(200).json({
       success: true, 
       data:  {}
-    });
-  
+    }); 
 })
-exports.getSinglePost = asyncHandler(async (req, res, next)=>{
-  const post = await Post.findById(req.params.id);
 
+exports.getSinglePost = asyncHandler(async (req, res, next)=>{
+  const post = await Post.findById(req.params.id); 
   if(!post){
     return next(
       new ErrorResponse(`No course with the id of ${req.params.id}`),
@@ -45,9 +44,10 @@ exports.getSinglePost = asyncHandler(async (req, res, next)=>{
     data: {_id, likes, comments}
    })
   })
-exports.getAllPosts = asyncHandler(async (req, res, next)=>{
-  const post = await Post.find({userId: req.user.id});
 
+
+exports.getAllPosts = asyncHandler(async (req, res, next)=>{
+  const post = await Post.find({userId: req.user.id}); 
   if(!post){
     return next(
       new ErrorResponse(`No post with the id of ${req.user.id}`),
@@ -59,6 +59,7 @@ exports.getAllPosts = asyncHandler(async (req, res, next)=>{
     data: post.reverse()
    })
   })
+
   exports.like = asyncHandler(async(req, res, next)=>{ 
     const post = await Post.findById(req.params.id);  
      if (!post.likes.includes(req.user.id)) {
@@ -71,6 +72,7 @@ exports.getAllPosts = asyncHandler(async (req, res, next)=>{
       return next(new ErrorResponse('You are already likes this post', 403));
     }
   })
+
   exports.unlike = asyncHandler(async(req, res, next)=>{ 
     const post = await Post.findById(req.params.id);  
      if (post.likes.includes(req.user.id)) {
@@ -83,6 +85,7 @@ exports.getAllPosts = asyncHandler(async (req, res, next)=>{
       return next(new ErrorResponse('You are not allow to unlike again', 403));
     }
   })
+
   exports.comment = asyncHandler(async(req, res, next)=>{ 
     const post = await Post.findById(req.params.id);  
     const user = req.user.id;
@@ -94,6 +97,5 @@ exports.getAllPosts = asyncHandler(async (req, res, next)=>{
       res.status(200).json({
         success: true, 
         data: post
-      });
-     
+      }); 
   })

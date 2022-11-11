@@ -5,37 +5,31 @@ const asyncHandler = require('../middleware/async');
 
 
 exports.register = asyncHandler(async (req, res, next)=>{
-  const {name, email, password } = req.body;
-
-
+  const {name, email, password } = req.body; 
   const user = await User.create({
     name,
     email,
     password 
   });  
-  sendTokenResponse(user, 200, res); 
-
+  sendTokenResponse(user, 200, res);  
 })
+
+
 exports.login = asyncHandler(async (req, res, next)=>{
-  const {name, email, password } = req.body;
-
-
+  const {name, email, password } = req.body;  
  if(!email || !password){
-  return next(new ErrorResponse('Please provide an email and password', 400) );
-
+  return next(new ErrorResponse('Please provide an email and password', 400) ); 
  }
  const user = await User.findOne({email}).select('+password');
  if(!user){
   return next(new ErrorResponse ('Invalid credentials', 401))
- }
-
+ } 
  const isMatch = await user.matchPassword(password);
  if(!isMatch){
-  return next(new ErrorResponse ('Invalid credentials', 401))
-
+  return next(new ErrorResponse ('Invalid credentials', 401)) 
  }
  sendTokenResponse(user, 200, res);
-});
+}); 
 
 
 const sendTokenResponse = (user, statusCode, res)=>{
@@ -53,6 +47,5 @@ const sendTokenResponse = (user, statusCode, res)=>{
   .json({
     success: true,
     token
-  })
-
+  }) 
 }
