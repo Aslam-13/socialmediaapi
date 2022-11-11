@@ -48,8 +48,8 @@ describe('/GET post details',()=>{
  });
  describe('/Delete delete post', ()=>{
   it('it should POST to follow user',(done)=>{
-    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmQzNmFkMTc2ZDQ5N2JmNWY1YzQ3YiIsImlhdCI6MTY2ODEwMTgwNSwiZXhwIjoxNjcwNjkzODA1fQ.f56NwFloCRICcppJowqo-D6UwIoRYqjXvo_OSEJ2CGk";
-    const id = "636d3efc91aa30017560af64";
+    const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzNmQzNmQ5OWU3YTMxNGVkMGYwZTY5NCIsImlhdCI6MTY2ODE1MzI5MCwiZXhwIjoxNjcwNzQ1MjkwfQ.hQGMEvuagROdGSkq1d2bsInpOq6deApmmAThDVPCKd0";
+    const id = "636d3b15dbdc29aebc62d0af";
      chai.request(server)
         .delete(`/api/v1/post/${id}`)
         .set("Authorization", `Bearer ${token}`) 
